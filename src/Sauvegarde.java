@@ -14,8 +14,6 @@ public class Sauvegarde implements  Serializable {
 	
 
 
-
-
 	public  void sauvegarder(){
 		listeCategorie=Controleur.listeCategorie;
 		listClub=Controleur.listClub;

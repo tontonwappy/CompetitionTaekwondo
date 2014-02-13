@@ -16,13 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
-
-
 public class PanelAjoutClub extends JPanel {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	JButton boutonEnvoie= new JButton("OK");
@@ -44,13 +38,10 @@ public class PanelAjoutClub extends JPanel {
 		this.add(contenuHaut,BorderLayout.NORTH);	
 		this.add(contenuDroite,BorderLayout.EAST);
 		this.add(contenuCenter,BorderLayout.CENTER);	
-
-		
 		/*Couleur*/
 		contenuDroite.setBackground(Color.GRAY);
 		contenuCenter.setBackground(new Color(193,205,205));
-		
-		
+			
 		/** Placement des composants : titre et bouton **/
 		contenuHaut.add(titre);		
 		nomClub.setColumns(20);
@@ -66,53 +57,27 @@ public class PanelAjoutClub extends JPanel {
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(200,250));
 		contenuDroite.add(listScroller);
-		
-		//new threadCheckList().start();	
-
-		/* INIT */
-//		Club clubInit=new Club(10,"USSE");
-//		Controleur.listClub.add(clubInit);
-//		listModel.addElement("USSE");
-//		clubInit=new Club(10,"Dauphine");
-//		Controleur.listClub.add(clubInit);
-//		listModel.addElement("Dauphine");
-		/* INIT */
 
 		
 		boutonEnvoie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				boolean existClub=false;
-				if (Controleur.listClub.size()!=0){
-					for(Club cl:Controleur.listClub){
-						if(cl.getNom().equals(nomClub.getText())){
-							existClub=true;
-						}
-						
-					}	
-				}
-				
-				
-				if(!existClub){
-				Club nouveauClub=new Club(1,nomClub.getText());
-				Controleur.listClub.add(nouveauClub);
-				nomClub.setText("");
-				listModel.addElement(nouveauClub.getNom());
+				String clubtext=nomClub.getText();
+				if (Controleur.rechercheClub(clubtext)==null){
+					Controleur.ajoutClub(clubtext);
+					nomClub.setText("");
+					listModel.addElement(clubtext);
 				}
 				else{
-
 					JOptionPane.showMessageDialog(getParent(),
 							"Le club existe deja");		
-					return;
-				
+					return;			
 				}
-
 			}
 		});
 
 		boutonSupprimer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
-
 			{
 				if(list.getSelectedIndex()!=-1){
 					if(!Controleur.supprimClub(listModel.get(list.getSelectedIndex()))){
@@ -130,34 +95,6 @@ public class PanelAjoutClub extends JPanel {
 			}
 			
 		});
-		
-
-
 	}
-	public class threadCheckList extends Thread {
 
-		public void run() {
-
-			while(true){
-				if(listModel.size()!=Controleur.listClub.size()){
-					listModel.removeAllElements();
-					remplirListClub();
-				}
-				try {
-					sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-			}
-		}
-
-	}
-	
-	public static void remplirListClub(){
-		for(Club cl : Controleur.listClub){
-			listModel.addElement(cl.getNom());
-		}
-
-	}
 }	

@@ -2,8 +2,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-
-
 public class Club  implements  Serializable {
 	/**
 	 * 
@@ -12,7 +10,12 @@ public class Club  implements  Serializable {
 	private String nom;
 	private   ArrayList<Competiteur> listCompetiteur=new ArrayList<Competiteur>();
 	
-
+	
+	Club(int id, String nom){
+		this.nom=nom;
+	}
+	
+	Club(){}
 	
 	public  ArrayList<Competiteur> getListCompetiteur() {
 		return listCompetiteur;
@@ -21,15 +24,8 @@ public class Club  implements  Serializable {
 	public  void setListCompetiteur(ArrayList<Competiteur> list) {
 		listCompetiteur = list;
 	}
-
-	Club(int id, String nom){
-		this.nom=nom;
-	}
 	
-	Club(){}
-		
 	
-
 	public String getNom() {
 		return nom;
 	}
@@ -37,21 +33,5 @@ public class Club  implements  Serializable {
 		this.nom = nom;
 	}
 	
-	public boolean supprimMembre(Competiteur membre){
-		for(Competiteur me : listCompetiteur){
-			if(membre==me){
-				listCompetiteur.remove(me);
-				return true;
-			}
-		}
-		return false;
-	}
 
-//	public ArrayList<Competiteur> getMembreClub() {
-//		return membreClub;
-//	}
-//
-//	public void setMembreClubID(ArrayList<Competiteur> membreClubID) {
-//		this.membreClub = membreClubID;
-//	}
 }

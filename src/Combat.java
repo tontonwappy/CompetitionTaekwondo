@@ -7,19 +7,18 @@ public class Combat  implements  Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6610523947725260495L;
-	private Categorie categorie;
+
 	private Competiteur premierCombattant;
 	private Competiteur deuxiemeCombattant;
-	private String genre;
+
 	
-	
-	public Combat(Categorie categorie, Competiteur premierCombattant,
-			Competiteur deuxiemeCombattant, String genre) {
+	public Combat(Competiteur premierCombattant,
+			Competiteur deuxiemeCombattant) {
 		super();
-		this.categorie = categorie;
+
 		this.premierCombattant = premierCombattant;
 		this.deuxiemeCombattant = deuxiemeCombattant;
-		this.genre = genre;
+
 	}
 
 	public Combat() {
@@ -38,16 +37,6 @@ public class Combat  implements  Serializable{
 	public void setDeuxiemeCombattant(Competiteur deuxiemeCombattant) {
 		this.deuxiemeCombattant = deuxiemeCombattant;
 	}
-	public Categorie getCategorie() {
-		return categorie;
-	}
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
-	public String getGenre() {
-		return genre;
-	}
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
+
+
 }

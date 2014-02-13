@@ -5,12 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -20,8 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
-
 
 
 
@@ -53,12 +47,8 @@ public class PanelAjoutCategorie extends JPanel {
 		JPanel contenuCentre = new JPanel();
 		JPanel contenuDroite = new JPanel();
 		final JPanel contenuHaut = new JPanel();
-		
-		
-
 		contenuDroite.setBackground(Color.gray);
 		contenuCentre.setBackground(new Color(193,205,205));
-
 		this.add(contenuHaut,BorderLayout.NORTH);
 		this.add(contenuCentre,BorderLayout.CENTER);	
 		this.add(contenuDroite,BorderLayout.EAST);	
@@ -72,31 +62,12 @@ public class PanelAjoutCategorie extends JPanel {
 		model.addColumn("Nom Categorie");
 		model.addColumn("Age Min");
 		model.addColumn("Age Max");
-
 		tableau.getColumnModel().getColumn(0).setPreferredWidth(180);
 		/** Placement des composants : titre et bouton **/
-		
-		
-		
 		contenuCentre.add(labelAjoutCategorie);		
 		nomCategorie.setColumns(20);
 		ageMaxiField.setColumns(2);
 		ageMiniField.setColumns(2);
-		
-		/*
-		contenuCentre.add(nomCategorie);
-		contenuCentre.add(labelAgeMini);
-		contenuCentre.add(ageMiniField);
-		contenuCentre.add(labelAgeMaxi);
-		contenuCentre.add(ageMaxiField);
-		contenuCentre.add(boutonEnvoie);
-		contenuCentre.add(boutonSupprimer);*/
-		
-		
-		
-		
-		
-
 		contenuCentre.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -128,23 +99,6 @@ public class PanelAjoutCategorie extends JPanel {
 		gbc.gridx = 1;
 		gbc.gridy = 4;
 		contenuCentre.add(boutonSupprimer,gbc);
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		final JLabel infoMixte = new JLabel("test");
 		contenuBas.add(infoMixte);
@@ -152,34 +106,15 @@ public class PanelAjoutCategorie extends JPanel {
 		tableau.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				ligneSelectionTableau = tableau.getSelectedRow();
-
 			}
 		});
 
 		boutonEnvoie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-
-
-				if(ageManquant.size()>0){	
-
-					for(int i=Integer.parseInt(ageMiniField.getText());i<=Integer.parseInt(ageMaxiField.getText());i++){
-						int x=0;
-						int indexAge=0;
-						boolean ageTrouve=false;
-						for(int age:ageManquant){
-							if(age==i ){
-								ageTrouve=true;
-								indexAge=x;
-							}
-							x=x+1;
-						}
-
-						if(ageTrouve)
-							ageManquant.remove(indexAge);
-
+				if(ageManquant.size()>0){
+					Controleur.verifAge(ageMiniField.getText(), ageMaxiField.getText());
 					}
-				}
 
 				String msgalerte = "Veuillez recreer les categories pour les ages suivant :";
 				for(int age :ageManquant){
@@ -192,7 +127,6 @@ public class PanelAjoutCategorie extends JPanel {
 					labelAlerte.setText("");
 				}
 
-
 				if(!nomCategorie.getText().equals("") && !ageMiniField.getText().equals("") && !ageMaxiField.getText().equals("")){
 					if(Integer.parseInt(ageMiniField.getText())>Integer.parseInt(ageMaxiField.getText()) ){
 						JOptionPane.showMessageDialog(getParent(),
@@ -201,27 +135,13 @@ public class PanelAjoutCategorie extends JPanel {
 					}
 
 					if(Controleur.VerifCreationCategorie(Integer.parseInt(ageMiniField.getText()), Integer.parseInt(ageMaxiField.getText()))){
-						Categorie nouvelleCategorie=new Categorie(nomCategorie.getText(), Integer.parseInt(ageMiniField.getText()),Integer.parseInt(ageMaxiField.getText()));
-						Controleur.listeCategorie.add(nouvelleCategorie);					
+						Categorie nouvelleCategorie=Controleur.ajoutNvlCategorie(nomCategorie.getText(), Integer.parseInt(ageMiniField.getText()),Integer.parseInt(ageMaxiField.getText()));
 						model.addRow(new Object[]{nomCategorie.getText(),Integer.parseInt(ageMiniField.getText()),Integer.parseInt(ageMaxiField.getText())});					
 						nomCategorie.setText("");
 						ageMaxiField.setText("");
 						ageMiniField.setText("");
 						listModel.addElement(nouvelleCategorie.getNom());
-						for(Club club : Controleur.listClub){
-							for(Competiteur comp :club.getListCompetiteur()){
-
-								System.out.println(comp.getCategorie());
-								if(comp.getCategorie()==null ){
-									System.out.println(Controleur.verifAgeDansCategorie(comp.getAge(),nouvelleCategorie));
-
-									if (Controleur.verifAgeDansCategorie(comp.getAge(),nouvelleCategorie)){
-
-										comp.setCategorie(nouvelleCategorie);
-									}
-								}
-							}
-						}
+						Controleur.ajoutToutCompCategorie(nouvelleCategorie);		
 					}
 					else{
 						JOptionPane.showMessageDialog(getParent(),
@@ -233,167 +153,36 @@ public class PanelAjoutCategorie extends JPanel {
 					JOptionPane.showMessageDialog(getParent(),
 							"les champs ne sont pas tous remplis");	
 				}
-				refreshCheckBox(contenuBas);
+				Controleur.refreshCheckBox(contenuBas);
 			}
-
 		});
 
 		/** Met l'attribut de la categorie de chaque compétiteurs à null quand on supprime une catégorie**/
 		boutonSupprimer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				for(Club cl :Controleur.listClub){
-					for(Competiteur comp : cl.getListCompetiteur()){					
-						if(comp.getCategorie()!=null){
-							System.out.println(comp.getCategorie().getNom()+" "+comp.getNom()+" "+ comp.getPrenom());
-							if (comp.getCategorie().getNom().equals(Controleur.listeCategorie.get(ligneSelectionTableau).getNom())){
-								System.out.println(comp.getNom()+ comp.getPrenom());
-								comp.setCategorie(null);
-							}
-						}
-					}
-				}
-
-				/** TEST **/
-				ArrayList<Integer> parcourAgeManquant=new ArrayList<Integer>();
-
-				for (Club cl:Controleur.listClub)
-				{
-					for(Competiteur comp : cl.getListCompetiteur()){
-						if(comp.getCategorie()==null){
-							if(!testValeurTableau(parcourAgeManquant, comp.getAge())){
-								parcourAgeManquant.add(comp.getAge());
-							}
-						}
-					}
-				}
-
-
+				Controleur.supprimCombattantCategorie(Controleur.listeCategorie.get(ligneSelectionTableau).getNom());
+				Controleur.ajoutAgeManquantDansCategorie();
 				/** Message d'alerte quand il manque des catégories associé aux attributs de chaques compétiteurs**/
-				//int ageMin=Controleur.listeCategorie.get(ligneSelectionTableau).getAgeMini();
-				//int ageMax=Controleur.listeCategorie.get(ligneSelectionTableau).getAgeMaxi();
 				labelAlerte.setForeground(Color.RED);
 				String msgalerte = "Veuillez recreer les categories pour les ages suivant :";
-				//System.out.println(ageMin);
-				//System.out.println(ageMax);
-				//for (int i=ageMin;i<=ageMax;i++){
-				//	ageManquant.add(i);
-				//}
-				//ageManquant=parcourAgeManquant;
-				ageManquant=triBulleCroissant(parcourAgeManquant);
-				for(int age :ageManquant){
+				ageManquant=Controleur.getAgeManquantDsCategorie();
+				for(int age :Controleur.getAgeManquantDsCategorie()){
 					msgalerte=msgalerte+Integer.toString( age)+" ;"; 
 				}
 				if(ageManquant.size()>0)
 					labelAlerte.setText(msgalerte);
-
 				contenuHaut.add(labelAlerte);
 				int numeroligne=ligneSelectionTableau;
 				Controleur.supprimCategorie(numeroligne);
-
 				model.removeRow(ligneSelectionTableau);	
-				refreshCheckBox(contenuBas);
+				Controleur.refreshCheckBox(contenuBas);
 			}
 		});
 
 
-
 	}
 
-
-	public static void refreshCheckBox(JPanel panel){
-		panel.removeAll();
-		panel.repaint();
-		JLabel infoMixte=new JLabel("Categorie mixte : ");
-		panel.add(infoMixte);	
-		for(Categorie cat : Controleur.listeCategorie){			
-			final JCheckBox nvlCheckBox=new JCheckBox(cat.getNom());	
-			panel.add(nvlCheckBox);		
-			if(cat.isCategorieMixt()){
-				nvlCheckBox.setSelected(true);
-			}
-
-			nvlCheckBox.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Categorie cat = Controleur.retrouveCategorie(nvlCheckBox.getText());
-					if(nvlCheckBox.isSelected())
-						cat.setCategorieMixt(true);
-					else
-						cat.setCategorieMixt(false);	
-					System.out.println(nvlCheckBox.getText()+" : "+ nvlCheckBox.isSelected());
-					System.out.println(cat.isCategorieMixt());
-
-				}});
-
-		}
-	}
-
-
-
-
-
-	private boolean testValeurTableau(ArrayList<Integer> tableau, Integer i){
-		for(Integer tab:tableau){
-			if(i==tab)
-				return true;
-		}
-		
-		return false;
-
-	}
-	
-	public static ArrayList<Integer> triBulleCroissant(ArrayList<Integer> tableau) {
-		int longueur = tableau.size();
-		int tampon = 0;
-		boolean permut;
- 
-		do {
-			// hypothèse : le tableau est trié
-			permut = false;
-			for (int i = 0; i < longueur - 1; i++) {
-				// Teste si 2 éléments successifs sont dans le bon ordre ou non
-				if (tableau.get(i) > tableau.get(i+1)) {
-					// s'ils ne le sont pas, on échange leurs positions
-					tampon = tableau.get(i);
-					tableau.set(i, tableau.get(i+1));
-					tableau.set(i+1, tampon) ;
-					permut = true;
-				}
-			}
-		} while (permut);
-		return tableau;
-	}
 
 }
-//	private void remplirListCategorie(){
-//		
-//		for(Categorie cat : Controleur.listeCategorie){
-//			//listModel.addElement(cat.getNom());
-//			model.addRow(new Object[]{cat.getNom(),cat.getAgeMini(),cat.getAgeMaxi()});					
-//		}
-//	}
-//	
-//	public class threadCheckList extends Thread {
-//
-//		public void run() {
-//			
-//			while(true){
-//				System.out.println("test");
-//				//if(listModel.size()!=Controleur.listeCategorie.size()){
-//					listModel.removeAllElements();
-//					remplirListCategorie();
-//					
-//				//}
-//				try {
-//					sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}	
-//			}
-//		}
-//
-//	}
-//}
+

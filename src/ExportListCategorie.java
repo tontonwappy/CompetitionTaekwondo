@@ -14,17 +14,10 @@ import jxl.write.biff.RowsExceededException;
 
 
 public class ExportListCategorie {
-
-
-
-
 	public static void exportExcel() {
-
-
 		try {
 			WritableWorkbook workbook = Workbook.createWorkbook(new File("sortieListCategorie.xls"));
-
-			
+		
 			for(ListeCombat  cat: Controleur.listCategorieCombat){					
 				WritableSheet sheet = workbook.createSheet(cat.getCategorie().getNom() + " " +cat.getGenre(), 0);
 				ecriretete(sheet);

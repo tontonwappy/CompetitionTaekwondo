@@ -4,25 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Calendar;
 import java.util.LinkedList;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
-
 public class PanelAjoutCompetiteur extends JPanel  {
-
-
 	JButton boutonEnvoie= new JButton("OK");
 	JButton boutonSupprimer= new JButton("Supprimer");
 	JButton boutonListe= new JButton("Importer une liste");
@@ -37,14 +27,14 @@ public class PanelAjoutCompetiteur extends JPanel  {
 	final JTextField nom = new JTextField();
 	final JTextField prenom = new JTextField();
 	final JTextField agePersonne = new JTextField();
-	DefaultTableModel model = new DefaultTableModel(); //définir le tableau
+	DefaultTableModel model = new DefaultTableModel();
 	JTable tableau = new JTable(model);
 	private JComboBox<String> comboGenre = new JComboBox<String>(); //définir fille ou garçon
 	int age;
 	int anneeNaissance;
 	int ligneSelectionTableau;
 	private LinkedList<Competiteur> listCompetiteurTableau=new LinkedList<Competiteur>();
-	DefaultListModel<String> listModel = new DefaultListModel<String>();
+	static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	JList<String> list = new JList<String>(listModel); 
 	private  static JScrollPane areaScrollPane=new JScrollPane();
 
@@ -53,18 +43,15 @@ public class PanelAjoutCompetiteur extends JPanel  {
 		//rend le panel focusable pour utiliser les keylisnters
 		this.setFocusable(true);
 		this.requestFocus();
-		
+
 		this.setLayout(new BorderLayout());
 		JPanel contenuWest = new JPanel();
 		contenuWest.setBackground(new Color(193,205,205));
 		JPanel contenuHaut = new JPanel();
-		//contenuHaut.setBackground(Color.blue);
 		JPanel contenuCenter = new JPanel();
 		contenuCenter.setBackground(Color.gray);
 		JPanel contenuBas = new JPanel();
-		//contenuBas.setBackground(Color.orange);
 		JPanel contenuIN = new JPanel();
-		//contenuIN.setBackground(Color.yellow);
 		JPanel contenuINHaut = new JPanel();
 		contenuINHaut.setBackground(Color.green);
 		JPanel contenuINCenter = new JPanel();
@@ -97,32 +84,20 @@ public class PanelAjoutCompetiteur extends JPanel  {
 		contenuINHaut.add(case2);
 		contenuINHaut.add(case3);
 		contenuINHaut.add(case4);
-		//contenuINHaut.add(case5);
-			
-		
-	
-		
-		
 		contenuTableau.add(tableau.getTableHeader(),BorderLayout.NORTH);
 		contenuTableau.add(tableau,BorderLayout.CENTER);
 		contenuTableau.add(contenuTableauBot,BorderLayout.SOUTH);
 		contenuTableauBot.add(info);
-	
-	/***/
-		
-		
+
 		areaScrollPane = new JScrollPane(contenuTableau);
 		areaScrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(550, 400));
-		
 		contenuINCenter.add(areaScrollPane);	
-		
-		/****/
+
 		//Ajout du genre
 		comboGenre.addItem("H");
 		comboGenre.addItem("F");
-
 
 		// Ajouter des colonnes au tableau
 		model.addColumn("Nom");
@@ -133,7 +108,6 @@ public class PanelAjoutCompetiteur extends JPanel  {
 		model.addColumn("Categorie");
 		model.addColumn("Club");
 
-
 		//Liste de club
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(-1);
@@ -141,8 +115,6 @@ public class PanelAjoutCompetiteur extends JPanel  {
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(200,250));
 		contenuWest.add(listScroller);
-
-
 
 		/** Placement des composants : titre et bouton **/
 		contenuHaut.add(titre);		
@@ -160,9 +132,6 @@ public class PanelAjoutCompetiteur extends JPanel  {
 		case3.add(dateNaissance);
 		case4.add(new JLabel("Genre"));
 		case4.add(comboGenre);
-		//case5.add(labelClub);
-		//case5.add(comboClub);
-
 		contenuBas.add(boutonEnvoie);
 		contenuBas.add(boutonSupprimer);
 		contenuBas.add(boutonListe);	
@@ -174,55 +143,19 @@ public class PanelAjoutCompetiteur extends JPanel  {
 
 			}
 		});
-//		/* INIT*/
-//				Competiteur initCompetiteur = new Competiteur("robinson","crusoe",5,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));	
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("arsen","lupin",6,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("jo","lafiotte",5,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("mario","ludgi",5,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("fiora","fetch",5,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("john","malokvich",5,"H",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("lenni","simpson",6,"F",Controleur.rechercheClub("USSE"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("USSE"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				
-//				initCompetiteur = new Competiteur("marius","lepecheur",5,"H",Controleur.rechercheClub("Dauphine"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("Dauphine"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				initCompetiteur = new Competiteur("dora","lexporatrice",5,"H",Controleur.rechercheClub("Dauphine"));
-//				Controleur.inserCompetiteur(initCompetiteur,Controleur.rechercheClub("Dauphine"));
-//				Controleur.inserCombattantCategorie(initCompetiteur);
-//				
-//								
-//				remplirCombattant(Controleur.rechercheClub("USSE"));	
 
-
-		/* INIT*/
-		new threadCheckList().start();	
+		new Controleur.threadCheckListpanelCompetiteur().start();	
 
 		list.addMouseListener(new MouseListener() {
 
-
+			//Recherche le club dans la liste grace au clique puis remplit la liste de combat
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				areaScrollPane.repaint();
 				Club selectionClub=Controleur.rechercheClub(list.getSelectedValue());
-				int i=remplirCombattant(selectionClub);		
-				System.out.println(list.getSelectedValue());
+				int i=Controleur.remplirCombattantPanelCompetiteur(selectionClub,model);		
 				info.setText("Nombre  :"+i);
-			
 			}
 
 			@Override
@@ -282,37 +215,29 @@ public class PanelAjoutCompetiteur extends JPanel  {
 					JOptionPane.showMessageDialog(getParent(),
 							"choisissez un club");				
 				}
-
-
 				else{
-
 					if(!dateNaissance.getText().equals("") && !agePersonne.getText().equals("")){
 						if(Integer.parseInt(dateNaissance.getText())<1950){
 							JOptionPane.showMessageDialog(getParent(),
 									"entez une date à 4 chiffre supérieur a 1950");		
 							return;
 						}
-						int age=calculAge(Integer.parseInt(dateNaissance.getText()));
+						int age=Controleur.calculAge(Integer.parseInt(dateNaissance.getText()));
 
 						if(age!=Integer.parseInt(dateNaissance.getText())){
 							JOptionPane.showMessageDialog(getParent(),
 									"la date de naissance et l'age ne concorde pas");		
 							return;
 						}
-
-
 					}	
 					if(!dateNaissance.getText().equals("")){
-						age=calculAge(Integer.parseInt(dateNaissance.getText()));
+						age=Controleur.calculAge(Integer.parseInt(dateNaissance.getText()));
 						anneeNaissance=Integer.parseInt(dateNaissance.getText());
 					}
 					else if(!agePersonne.getText().equals("")){
 						age=Integer.parseInt(agePersonne.getText());
-						anneeNaissance=calculAnnee(Integer.parseInt(agePersonne.getText()));
+						anneeNaissance=Controleur.calculAnnee(Integer.parseInt(agePersonne.getText()));
 					}
-
-
-
 					for(Club c : Controleur.listClub){
 						if(c.getNom().equals(list.getSelectedValue())){
 							if (!Controleur.verifInsertionCategorie(age)){
@@ -332,147 +257,41 @@ public class PanelAjoutCompetiteur extends JPanel  {
 							model.addRow(new Object[]{nom.getText(),prenom.getText(),age,anneeNaissance,comboGenre.getSelectedItem().toString(),insertionCategorieCombattant.getNom(),c.getNom()});
 							break;
 						}	
-
 					}
-
 					nom.setText("");
 					prenom.setText("");
 					agePersonne.setText("");
 					dateNaissance.setText("");
-					comboClub.setSelectedIndex(1);
-
 				}
 			}
 		});
-		
-		
 
 		boutonSupprimer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
-			{
-				
-				if(!(list.getSelectedValue()==null)){
-				System.out.println("----++++++++++++++----");
-				for(Club cl : Controleur.listClub){
-					for(Competiteur comp : cl.getListCompetiteur()){				
-						System.out.println(comp.toString());
-						if(comp.getClub().getNom().equals(list.getSelectedValue())){
-
-						}
-					}
-					System.out.println(cl.getListCompetiteur().size());
+			{				
+				if(!(list.getSelectedValue()==null)){				
+					Club recupClub=Controleur.rechercheClub(list.getSelectedValue());	
+					Controleur.supprimCompetiteurClub(recupClub, ligneSelectionTableau);
+					model.removeRow(ligneSelectionTableau);	
 				}
-			
-				System.out.println("----*******----");
-				Club recupClub=Controleur.rechercheClub(list.getSelectedValue());	
-				Controleur.supprimCompetiteurClub(recupClub, ligneSelectionTableau);
-				//listCompetiteurTableau.remove(ligneSelectionTableau);	
-
-				model.removeRow(ligneSelectionTableau);	
-				for(Club cl : Controleur.listClub){
-					for(Competiteur comp : cl.getListCompetiteur()){				
-						System.out.println(comp.toString());
-						if(comp.getClub().getNom().equals(list.getSelectedValue())){
-
-						}
-					}
-					System.out.println(cl.getListCompetiteur().size());
+				else{
+					JOptionPane.showMessageDialog(getParent(),
+							"Selectionne d'abord le club");				
 				}
-
-			}
-			
-			else{
-				JOptionPane.showMessageDialog(getParent(),
-						"Selectionne d'abord le club");		
-			
-			}
 			}
 		});
-		
-		
-		
 
 		boutonListe.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
 				Controleur.importDonnee("Competiteur");
-				
 			}
 		});
 	}
 	
-	
 
 
-	public Object GetData(JTable table, int row_index, int col_index){
-		return table.getModel().getValueAt(row_index, col_index);
-	}  
 
-	public void refreshComboClub(){
-		comboClub.removeAllItems();
-		comboClub.addItem("");
-		for(Club c : Controleur.listClub){
-			comboClub.addItem(c.getNom());
-		}
-	}
-
-	private int calculAge(int dateAnneeNaissance){	
-		Calendar c = Calendar.getInstance();
-		int annee = c.get(Calendar.YEAR);
-		int age=annee-dateAnneeNaissance;
-		return age;
-	}
-
-	private int calculAnnee(int age){
-		Calendar c = Calendar.getInstance();
-		int annee = c.get(Calendar.YEAR);
-		return annee-age;
-	}
-
-	public class threadCheckList extends Thread {
-
-		public void run() {
-
-			while(true){
-				if(listModel.size()!=Controleur.listClub.size()){
-					listModel.removeAllElements();
-					remplirListClub();
-				}
-				try {
-					sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-			}
-		}
-
-	}
-
-	private void remplirListClub(){
-		for(Club cl : Controleur.listClub){
-			listModel.addElement(cl.getNom());
-		}
-
-	}
-	private int remplirCombattant(Club club){
-		model.getDataVector().removeAllElements();
-		boolean aUnCompetiteur=false;
-		int i =0;
-		for(Competiteur comp : club.getListCompetiteur()){
-			System.out.println(comp.toString());
-			if (comp.getClub()==club){
-				i=i+1;
-				//System.out.println(comp.toString());
-				model.addRow(new Object[]{comp.getNom(),comp.getPrenom(),comp.getAge(),calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),comp.getClub().getNom()});
-				aUnCompetiteur=true;
-			}
-		}
-		if (!aUnCompetiteur){
-			//model.addRow(new Object[]{});
-		}
-		return i;
-	}
 
 
 

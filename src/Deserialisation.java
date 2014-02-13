@@ -15,10 +15,10 @@ public class Deserialisation {
 			System.out.println("Deserialisation"+restauration.listClub);
 			Controleur.listClub=restauration.listClub;
 			Controleur.listeCategorie=restauration.listeCategorie;
-			Controleur.listCategorieCombat=restauration.listCategorieCombat;
+			//Controleur.listCategorieCombat=restauration.listCategorieCombat;
 			Controleur.chargementCategorie();
-			PanelAjoutClub.remplirListClub();
-			PanelAjoutCategorie.refreshCheckBox(PanelAjoutCategorie.contenuBas);
+			Controleur.remplirListClub(PanelAjoutClub.listModel);
+			Controleur.refreshCheckBox(PanelAjoutCategorie.contenuBas);
 			for(Club cl : restauration.listClub){
 				System.out.println("*********");
 				System.out.println(cl.getNom());

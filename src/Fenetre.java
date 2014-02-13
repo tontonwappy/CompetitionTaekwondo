@@ -2,9 +2,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -22,7 +19,7 @@ public class Fenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JMenuBar menuBar;
 	JMenu menu;
-	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,rechercheCompetiteur,genererList,sauvegarde,chargement;
+	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,boutonCategorie,genererList,sauvegarde,chargement;
 	JRadioButtonMenuItem rbMenuItem;
 	JCheckBoxMenuItem cbMenuItem;
 	JMenu accueil,gestion,afficher,generer,gestionSauvegarde;
@@ -57,8 +54,8 @@ public class Fenetre extends JFrame {
 		generer.add(genererList);
 		afficher = new JMenu("Afficher");
 		menuBar.add(afficher);
-		rechercheCompetiteur = new JMenuItem("Afficher tous les compétiteurs");
-		afficher.add(rechercheCompetiteur);	     
+		boutonCategorie = new JMenuItem("Afficher tous les compétiteurs");
+		afficher.add(boutonCategorie);	     
 		sauvegarde = new JMenuItem("Sauvegarder");
 		gestionSauvegarde.add(sauvegarde);
 		//chargement = new JMenuItem("Chargement");
@@ -95,7 +92,6 @@ public class Fenetre extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				setPanel(panelAjoutCompetiteur);
-				panelAjoutCompetiteur.refreshComboClub();
 				currentPanel=panelAjoutCompetiteur;
 			}
 		});
@@ -126,17 +122,12 @@ public class Fenetre extends JFrame {
 			}
 		});
 		
-		//chargement.addActionListener(new ActionListener(){
-			//public void actionPerformed(ActionEvent e)
-			//{
-				//Deserialisation.deserialise();
-		//	}
-		//});
+
 		
-		rechercheCompetiteur.addActionListener(new ActionListener(){
+		boutonCategorie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				PanelAfficherCategorieDetail.refresh();
+				Controleur.refreshListModelCategorie(PanelAfficherCategorieDetail.listModel);
 			    if(PanelAjoutCategorie.ageManquant.size()==0){
 				setPanel(panelAfficherCompetiteur);
 				currentPanel=panelAfficherCompetiteur;
@@ -146,16 +137,12 @@ public class Fenetre extends JFrame {
 			    }
 			}
 		});
-		
 		this.setVisible(true);
-		
-
 	}
 	
 	private void setPanel(JPanel panel){
 		if(currentPanel!=null){
-			this.remove(currentPanel);
-		
+			this.remove(currentPanel);	
 		}
 		this.add(panel);
 		this.revalidate();

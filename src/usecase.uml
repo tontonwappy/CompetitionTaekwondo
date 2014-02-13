@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_k5JPoIf6EeOotpAGotbVSA" name="model">
+  <packagedElement xmi:type="uml:Actor" xmi:id="_2mfbIIf6EeOotpAGotbVSA" name="Administrateur"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_4562UIf6EeOotpAGotbVSA" name="Logiciel gestion Taekwondo">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_8qchoIf6EeOotpAGotbVSA" name="Ajouter du combatant"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="__3Zl0If6EeOotpAGotbVSA" name="Ajouter un club"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_BWidUIf7EeOotpAGotbVSA" name="Ajouter une categorie"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_htaeAIf7EeO9tqFGeIXyCw" name="Generer une liste de combatants"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_xXH90If7EeO9tqFGeIXyCw" name="Exporter sous excel la liste des combats"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_3QLb4If7EeO9tqFGeIXyCw" name="Exporter sous excel la liste des clubs et combatants"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_RGX90If8EeO9tqFGeIXyCw" clientDependency="_xENzcIf8EeO9tqFGeIXyCw _z81w8If9EeO9tqFGeIXyCw _qzzMAIgBEeO9tqFGeIXyCw _ruZMAIgBEeO9tqFGeIXyCw" name="Synchroniser les donnees avec le serveur"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_xENzcIf8EeO9tqFGeIXyCw" name="Dependency1" client="_RGX90If8EeO9tqFGeIXyCw" supplier="_uQ1F0If8EeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_PHmukIf9EeO9tqFGeIXyCw" name="Dependency2" client="_0j0G0If8EeO9tqFGeIXyCw" supplier="_KvWU4If9EeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_mUjWUIf9EeO9tqFGeIXyCw" name="Ajouter une competition"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_z81w8If9EeO9tqFGeIXyCw" name="Dependency3" client="_RGX90If8EeO9tqFGeIXyCw" supplier="_0j0G0If8EeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_qzzMAIgBEeO9tqFGeIXyCw" name="Dependency4" client="_RGX90If8EeO9tqFGeIXyCw" supplier="_lYTzsIgBEeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_ruZMAIgBEeO9tqFGeIXyCw" name="Dependency5" client="_RGX90If8EeO9tqFGeIXyCw" supplier="_nZlu8IgBEeO9tqFGeIXyCw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CJ7zsIf8EeO9tqFGeIXyCw" name="A_actor_ajouter du combatant" memberEnd="_CJ7zsYf8EeO9tqFGeIXyCw _CJ7ztIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_CJ7zsYf8EeO9tqFGeIXyCw" name="actor" type="_2mfbIIf6EeOotpAGotbVSA" association="_CJ7zsIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CJ7zsof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CJ7zs4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_CJ7ztIf8EeO9tqFGeIXyCw" name="ajouter du combatant" type="_8qchoIf6EeOotpAGotbVSA" association="_CJ7zsIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CJ7ztYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CJ7ztof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_GsbugIf8EeO9tqFGeIXyCw" name="A_administrateur_ajouter un club" memberEnd="_GsbugYf8EeO9tqFGeIXyCw _GsbuhIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_GsbugYf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_GsbugIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gsbugof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsbug4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_GsbuhIf8EeO9tqFGeIXyCw" name="ajouter un club" type="__3Zl0If6EeOotpAGotbVSA" association="_GsbugIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GsbuhYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsbuhof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HqG3sIf8EeO9tqFGeIXyCw" name="A_administrateur_ajouter une categorie" memberEnd="_HqG3sYf8EeO9tqFGeIXyCw _HqG3tIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_HqG3sYf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_HqG3sIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HqG3sof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HqG3s4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_HqG3tIf8EeO9tqFGeIXyCw" name="ajouter une categorie" type="_BWidUIf7EeOotpAGotbVSA" association="_HqG3sIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HqG3tYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HqG3tof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ISTgIIf8EeO9tqFGeIXyCw" name="A_administrateur_generer une liste de combatants" memberEnd="_ISTgIYf8EeO9tqFGeIXyCw _ISTgJIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_ISTgIYf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_ISTgIIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ISTgIof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ISTgI4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_ISTgJIf8EeO9tqFGeIXyCw" name="generer une liste de combatants" type="_htaeAIf7EeO9tqFGeIXyCw" association="_ISTgIIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ISTgJYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ISTgJof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_JAlicIf8EeO9tqFGeIXyCw" name="A_administrateur_exporter sous excel la liste des combats" memberEnd="_JAlicYf8EeO9tqFGeIXyCw _JAlidIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_JAlicYf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_JAlicIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JAlicof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JAlic4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_JAlidIf8EeO9tqFGeIXyCw" name="exporter sous excel la liste des combats" type="_xXH90If7EeO9tqFGeIXyCw" association="_JAlicIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JAlidYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JAlidof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Jnua8If8EeO9tqFGeIXyCw" name="A_administrateur_exporter sous excel la liste des clubs et combatants" memberEnd="_Jnua8Yf8EeO9tqFGeIXyCw _Jnua9If8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_Jnua8Yf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_Jnua8If8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Jnua8of8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Jnua84f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_Jnua9If8EeO9tqFGeIXyCw" name="exporter sous excel la liste des clubs et combatants" type="_3QLb4If7EeO9tqFGeIXyCw" association="_Jnua8If8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Jnua9Yf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Jnua9of8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cnZxAIf8EeO9tqFGeIXyCw" name="A_administrateur_recuperer les combatants du serveur" memberEnd="_cnZxAYf8EeO9tqFGeIXyCw _cnZxBIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_cnZxAYf8EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_cnZxAIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cnZxAof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cnZxA4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_cnZxBIf8EeO9tqFGeIXyCw" name="recuperer les combatants du serveur" type="_RGX90If8EeO9tqFGeIXyCw" association="_cnZxAIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cnZxBYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cnZxBof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_ftle0If8EeO9tqFGeIXyCw" name="Client Web">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_rLJuUIf8EeO9tqFGeIXyCw" clientDependency="_vivZoIf8EeO9tqFGeIXyCw _sdKWgIgBEeO9tqFGeIXyCw _s_pYgIgBEeO9tqFGeIXyCw" name="Ajout de combatant"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_vivZoIf8EeO9tqFGeIXyCw" name="Dependency1" client="_rLJuUIf8EeO9tqFGeIXyCw" supplier="_uQ1F0If8EeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_KvWU4If9EeO9tqFGeIXyCw" clientDependency="_79sB8If9EeO9tqFGeIXyCw" name="Recuperer les donnes du serveur"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_5w_g4If9EeO9tqFGeIXyCw" name="UseCase"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_79sB8If9EeO9tqFGeIXyCw" name="Dependency2" client="_KvWU4If9EeO9tqFGeIXyCw" supplier="_0j0G0If8EeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_sdKWgIgBEeO9tqFGeIXyCw" name="Dependency3" client="_rLJuUIf8EeO9tqFGeIXyCw" supplier="_lYTzsIgBEeO9tqFGeIXyCw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_s_pYgIgBEeO9tqFGeIXyCw" name="Dependency4" client="_rLJuUIf8EeO9tqFGeIXyCw" supplier="_nZlu8IgBEeO9tqFGeIXyCw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_lLFpUIf8EeO9tqFGeIXyCw" name="Club"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_zZwHcIf8EeO9tqFGeIXyCw" name="A_club_ajout de combatant" memberEnd="_zZwHcYf8EeO9tqFGeIXyCw _zZwHdIf8EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_zZwHcYf8EeO9tqFGeIXyCw" name="club" type="_lLFpUIf8EeO9tqFGeIXyCw" association="_zZwHcIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zZwHcof8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zZwHc4f8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_zZwHdIf8EeO9tqFGeIXyCw" name="ajout de combatant" type="_rLJuUIf8EeO9tqFGeIXyCw" association="_zZwHcIf8EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zZwHdYf8EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zZwHdof8EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_9-FB0If8EeO9tqFGeIXyCw" name="Serveur">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_Dl9QUIf9EeO9tqFGeIXyCw" name="Synchroniser "/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_pO4ZcIf9EeO9tqFGeIXyCw" name="A_administrateur_ajouter une competition" memberEnd="_pO4ZcYf9EeO9tqFGeIXyCw _pO4ZdIf9EeO9tqFGeIXyCw">
+    <ownedEnd xmi:id="_pO4ZcYf9EeO9tqFGeIXyCw" name="administrateur" type="_2mfbIIf6EeOotpAGotbVSA" association="_pO4ZcIf9EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pO4Zcof9EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pO4Zc4f9EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_pO4ZdIf9EeO9tqFGeIXyCw" name="ajouter une competition" type="_mUjWUIf9EeO9tqFGeIXyCw" association="_pO4ZcIf9EeO9tqFGeIXyCw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pO4ZdYf9EeO9tqFGeIXyCw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pO4Zdof9EeO9tqFGeIXyCw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_0j0G0If8EeO9tqFGeIXyCw" clientDependency="_PHmukIf9EeO9tqFGeIXyCw" name="Synchroniser les donnees entre l'application et le serveur"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_MubNoIjiEeODZsdl7ilYsA" name="Serveur web">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_uQ1F0If8EeO9tqFGeIXyCw" name="s'authantifier"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_lYTzsIgBEeO9tqFGeIXyCw" name="Ajouter donnees bdd"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_nZlu8IgBEeO9tqFGeIXyCw" name="Recupperer donnees bdd"/>
+  </packagedElement>
+</uml:Model>

@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,8 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
-
-import jxl.write.biff.RowsExceededException;
 
 
 public class PanelGenererList extends JPanel{
@@ -170,8 +167,7 @@ public class PanelGenererList extends JPanel{
 								numeroCompTotal=numeroCompTotal+1;
 							}
 						}
-						textArea.append("\n \n \n");
-					
+						textArea.append("\n \n \n");			
 						
 					}
 					else{
@@ -195,7 +191,6 @@ public class PanelGenererList extends JPanel{
 						textArea.append("\n \n \n");
 						
 					}
-
 				}
 				textArea.append("\n \n \n");
 				textArea.append("Nombre total de participants dans la liste =" + numeroCompTotal);

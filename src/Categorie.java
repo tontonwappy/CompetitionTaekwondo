@@ -2,7 +2,6 @@ import java.io.Serializable;
 
 
 
-
 public class Categorie implements  Serializable {
 	/**
 	 * 
@@ -12,7 +11,6 @@ public class Categorie implements  Serializable {
 	private int ageMini;
 	private int ageMaxi;
 	private boolean categorieMixt=false;
-	//private  ArrayList<Competiteur> listeCompetiteur=new ArrayList<Competiteur>();
 	
 	Categorie(String nom, int ageMini, int ageMaxi){
 		this.nom=nom;
@@ -46,9 +44,5 @@ public class Categorie implements  Serializable {
 	}
 	public void setAgeMaxi(int ageMaxi) {
 		this.ageMaxi = ageMaxi;
-	}
-
-
-	
-
+	}	
 }

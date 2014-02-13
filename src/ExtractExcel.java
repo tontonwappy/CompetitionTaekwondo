@@ -1,9 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.ResourceBundle.Control;
-
-import javax.swing.JOptionPane;
 
 import jxl.*; 
 import jxl.read.biff.BiffException;
@@ -40,6 +36,7 @@ public class ExtractExcel {
 				System.out.println("..................");
 				Competiteur nouveauCompetiteur=new Competiteur(sheet.getCell(0,i).getContents(),sheet.getCell(1,i).getContents(),Integer.parseInt(sheet.getCell(2,i).getContents()),sheet.getCell(3,i).getContents(),club);
 				Controleur.inserCompetiteur(nouveauCompetiteur,Controleur.rechercheClub(sheet.getCell(1,0).getContents()));
+				@SuppressWarnings("unused")
 				Categorie cat =Controleur.inserCombattantCategorie(nouveauCompetiteur);
 				
 		

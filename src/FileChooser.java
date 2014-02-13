@@ -154,7 +154,8 @@ public class FileChooser extends JFrame implements ActionListener
     * Ici, on retourne le contenu entier du fichier sous forme d'une chaine
     * de caractere
     */
-   public String lireFichier()
+   @SuppressWarnings("resource")
+public String lireFichier()
    {
  
       StringBuffer contenu = new StringBuffer("");
