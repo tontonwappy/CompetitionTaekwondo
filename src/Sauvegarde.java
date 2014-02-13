@@ -15,20 +15,20 @@ public class Sauvegarde implements  Serializable {
 
 
 	public  void sauvegarder(){
-		listeCategorie=Controleur.listeCategorie;
-		listClub=Controleur.listClub;
+		listeCategorie=Competition.listeCategorie;
+		listClub=Competition.listClub;
 		listCategorieCombat=Controleur.listCategorieCombat;
 		System.out.println(listeCategorie);
 	}
 	
 	public static void chargement(ArrayList<ListeCombat> listCatCombSauv,ArrayList<Club> listClubSauv,ArrayList<Categorie> listCatSauv){
 		Controleur.listCategorieCombat.removeAll(Controleur.listCategorieCombat);
-		Controleur.listClub.removeAll(Controleur.listClub);
-		Controleur.listCategorieCombat.removeAll(Controleur.listeCategorie);
+		Competition.listClub.removeAll(Competition.listClub);
+		Controleur.listCategorieCombat.removeAll(Competition.listeCategorie);
 		
 		Controleur.listCategorieCombat=listCatCombSauv;
-		Controleur.listClub=listClubSauv;
-		Controleur.listeCategorie=listCatSauv;
+		Competition.listClub=listClubSauv;
+		Competition.listeCategorie=listCatSauv;
 	}
 	
 }

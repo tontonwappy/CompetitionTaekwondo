@@ -13,31 +13,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class Controleur {
 	public static ArrayList<Integer> parcourAgeManquant=new ArrayList<Integer>();
-	public static  ArrayList<Categorie> listeCategorie=new ArrayList<Categorie>();
-	public static ArrayList<Club> listClub=new ArrayList<Club>();
+
 	public static ArrayList<ListeCombat> listCategorieCombat = new ArrayList<ListeCombat>();
-	
-	public static ArrayList<Categorie> getListeCategorie() {
-		return listeCategorie;
-	}
+
 
 	public static void listeCategorieToString(){
-		for(Categorie cat :listeCategorie){
+		for(Categorie cat :Competition.listeCategorie){
 			System.out.println(cat.getNom());
 		}
 	}
 
-	public static void setListeCategorie(ArrayList<Categorie> listeCategorie) {
-		Controleur.listeCategorie = listeCategorie;
-	}
 
-	public static ArrayList<Club> getListClub() {
-		return listClub;
-	}
-
-	public static void setListClub(ArrayList<Club> listClub) {
-		Controleur.listClub = listClub;
-	}
 
 	public static ArrayList<ListeCombat> getListCategorieCombat() {
 		return listCategorieCombat;
@@ -55,7 +41,7 @@ public class Controleur {
 	}
 
 	public static Categorie inserCombattantCategorie(Competiteur competiteur){
-		for(Categorie cat : listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 
 			if(cat.getAgeMini()<=competiteur.getAge() && cat.getAgeMaxi()>=competiteur.getAge()){
 				competiteur.setCategorie(cat);
@@ -69,7 +55,7 @@ public class Controleur {
 
 	//Verifie si une des Categories comporte l'age
 	public static Boolean verifInsertionCategorie(int age){
-		for(Categorie cat : listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 			if(cat.getAgeMini()<=age && cat.getAgeMaxi()>=age){
 				return true;
 			}
@@ -79,7 +65,7 @@ public class Controleur {
 
 	//Retrouve une Categorie avec son nom
 	public static Categorie retrouveCategorie(String categorieString){
-		for(Categorie cat: listeCategorie){
+		for(Categorie cat: Competition.listeCategorie){
 			if (cat.getNom().equals(categorieString))
 				return cat;
 		}
@@ -88,7 +74,7 @@ public class Controleur {
 
 	//Verifie la conformite d'une nouvelle categorie, elle ne doit pas chevaucher une autre
 	public static Boolean VerifCreationCategorie(int ageMini,int ageMaxi){
-		for(Categorie cat : listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 			if(cat.getAgeMini()<=ageMini && cat.getAgeMaxi()> ageMini ){
 				return false;
 			}
@@ -118,8 +104,8 @@ public class Controleur {
 	//Recherche un club avec son nom
 	public static Club rechercheClub(String club){
 		Club recupclub=null;
-		if(listClub.size()!=0){
-			for(Club cl : listClub){
+		if(Competition.listClub.size()!=0){
+			for(Club cl : Competition.listClub){
 				if(cl.getNom().equals(club)){
 					recupclub=cl;
 				}		
@@ -140,7 +126,7 @@ public class Controleur {
 		if(supprim){
 			Club recupClub=rechercheClub(club);
 			if(recupClub!=null){
-				listClub.remove(recupClub);
+				Competition.listClub.remove(recupClub);
 			}
 		}
 		return supprim;
@@ -160,12 +146,12 @@ public class Controleur {
 
 	//supprime une categorie avec sa position dans l'array
 	public static void supprimCategorie(int numeroDsArray){
-		listeCategorie.remove(numeroDsArray);
+		Competition.listeCategorie.remove(numeroDsArray);
 	}
 
 	//affiche tout les competiteurs pour tous les clubs
 	public static void afficheToutCompetiteur(){
-		for(Club cl : listClub){
+		for(Club cl : Competition.listClub){
 			for(Competiteur comp :cl.getListCompetiteur()){
 				System.out.println("-----");			
 				comp.toString();
@@ -177,11 +163,11 @@ public class Controleur {
 	//genere une liste de combat avec pour chaque combat, 2 combatants, si ce n'est pas possible cree un combat avec 1 combattant
 	public static void generationListCombat(){
 		listCategorieCombat.clear();
-		for(Categorie cat : listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 			if(cat.isCategorieMixt()){
 				ListeCombat nvlListeCombatH=new ListeCombat(cat, "Mixte");
 				listCategorieCombat.add(nvlListeCombatH);
-				for(Club cl : listClub){
+				for(Club cl : Competition.listClub){
 					for(Competiteur comp : cl.getListCompetiteur()){
 						//System.out.println(comp.getNom());
 						if(comp.getCategorie().getNom().equals(cat.getNom())){
@@ -195,7 +181,7 @@ public class Controleur {
 				ListeCombat nvlListeCombatF=new ListeCombat(cat, "F");
 				listCategorieCombat.add(nvlListeCombatH);
 				listCategorieCombat.add(nvlListeCombatF);	
-				for(Club cl : listClub){
+				for(Club cl : Competition.listClub){
 					for(Competiteur comp : cl.getListCompetiteur()){
 
 						if(comp.getCategorie().getNom().equals(cat.getNom())){
@@ -316,7 +302,7 @@ public class Controleur {
 
 	public static void chargementCategorie(){
 
-		for(Categorie cat : Controleur.listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 			PanelAjoutCategorie.listModel.addElement(cat.getNom());
 			PanelAjoutCategorie.model.addRow(new Object[]{cat.getNom(),cat.getAgeMini(),cat.getAgeMaxi()});			
 
@@ -325,7 +311,7 @@ public class Controleur {
 	}
 
 	public static void resetCombattant(){
-		for(Club cl : listClub){
+		for(Club cl : Competition.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){
 				comp.setDansListCombat(false);
 			}
@@ -338,12 +324,12 @@ public class Controleur {
 
 	public static void ajoutClub(String club){
 		Club nouveauClub=new Club(1,club);
-		Controleur.listClub.add(nouveauClub);
+		Competition.listClub.add(nouveauClub);
 	}
 
 	/* Recherche tout les competiteurs qui n'ont pas de contegorie et l'ajoute dans cette categorie*/
 	public static void ajoutToutCompCategorie(Categorie categorie){
-		for(Club club : Controleur.listClub){
+		for(Club club : Competition.listClub){
 			for(Competiteur comp :club.getListCompetiteur()){
 				if(comp.getCategorie()==null ){
 					if (Controleur.verifAgeDansCategorie(comp.getAge(),categorie)){
@@ -356,13 +342,13 @@ public class Controleur {
 	}
 	public static Categorie ajoutNvlCategorie(String nom,int ageMini,int ageMaxi){
 		Categorie nouvelleCategorie=new Categorie(nom, ageMini,ageMaxi);
-		Controleur.listeCategorie.add(nouvelleCategorie);
+		Competition.listeCategorie.add(nouvelleCategorie);
 		return nouvelleCategorie;
 	}
 
 	/* pour une categorie donnee met a null l'attribut categorie des combatants present dans celle ci*/
 	public static void supprimCombattantCategorie(String categorie){
-		for(Club cl :Controleur.listClub){
+		for(Club cl :Competition.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){					
 				if(comp.getCategorie()!=null){
 					if (comp.getCategorie().getNom().equals(categorie)){
@@ -374,7 +360,7 @@ public class Controleur {
 	}
 
 	public static void ajoutAgeManquantDansCategorie(){
-		for (Club cl:Controleur.listClub)
+		for (Club cl:Competition.listClub)
 		{
 			for(Competiteur comp : cl.getListCompetiteur()){
 				if(comp.getCategorie()==null){
@@ -436,7 +422,7 @@ public class Controleur {
 	}
 
 	public static void remplirListClub(DefaultListModel<String> listModel){
-		for(Club cl : Controleur.listClub){
+		for(Club cl : Competition.listClub){
 			listModel.addElement(cl.getNom());
 		}
 	}
@@ -454,7 +440,7 @@ public class Controleur {
 	}
 	
 	public static void remplirListCategorie(DefaultListModel<String> listModel){
-		for(Categorie cat : Controleur.listeCategorie){
+		for(Categorie cat : Competition.listeCategorie){
 			listModel.addElement(cat.getNom());
 		}
 	}
@@ -467,20 +453,20 @@ public class Controleur {
 	public static int remplirCombattant(Categorie categorie, DefaultTableModel model){
 		model.getDataVector().removeAllElements();
 		int i=0;
-		for(Club cl : Controleur.listClub){
+		for(Club cl : Competition.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){	
 				if (comp.getCategorie().getNom().equals(categorie.getNom()) && comp.getGenre().equals("H")){
 					i=i+1;
-					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Controleur.listClub.get(0).getNom()});
+					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Competition.listClub.get(0).getNom()});
 				}
 			}
 		}		
 		model.addRow(new Object[]{"***","***","***","***","***","***","***","***"});
-		for(Club cl : Controleur.listClub){
+		for(Club cl : Competition.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){
 				if (comp.getCategorie().getNom().equals(categorie.getNom())&& comp.getGenre().equals("F")){
 					i=i+1;
-					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Controleur.listClub.get(0).getNom()});
+					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Competition.listClub.get(0).getNom()});
 				}
 			}
 		}
@@ -492,7 +478,7 @@ public class Controleur {
 		panel.repaint();
 		JLabel infoMixte=new JLabel("Categorie mixte : ");
 		panel.add(infoMixte);	
-		for(Categorie cat : Controleur.listeCategorie){			
+		for(Categorie cat : Competition.listeCategorie){			
 			final JCheckBox nvlCheckBox=new JCheckBox(cat.getNom());	
 			panel.add(nvlCheckBox);		
 			if(cat.isCategorieMixt()){
@@ -531,7 +517,7 @@ public class Controleur {
 	public static class threadCheckListpanelCompetiteur extends Thread {
 		public void run() {
 			while(true){
-				if(PanelAjoutCompetiteur.listModel.size()!=Controleur.listClub.size()){
+				if(PanelAjoutCompetiteur.listModel.size()!=Competition.listClub.size()){
 					PanelAjoutCompetiteur.listModel.removeAllElements();
 					Controleur.remplirListClub(PanelAjoutCompetiteur.listModel);
 				}

@@ -13,8 +13,8 @@ public class Deserialisation {
 			
 			Sauvegarde  restauration = (Sauvegarde) ois.readObject();
 			System.out.println("Deserialisation"+restauration.listClub);
-			Controleur.listClub=restauration.listClub;
-			Controleur.listeCategorie=restauration.listeCategorie;
+			Competition.listClub=restauration.listClub;
+			Competition.listeCategorie=restauration.listeCategorie;
 			//Controleur.listCategorieCombat=restauration.listCategorieCombat;
 			Controleur.chargementCategorie();
 			Controleur.remplirListClub(PanelAjoutClub.listModel);

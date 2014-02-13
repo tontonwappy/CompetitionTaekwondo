@@ -161,7 +161,7 @@ public class PanelAjoutCategorie extends JPanel {
 		boutonSupprimer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				Controleur.supprimCombattantCategorie(Controleur.listeCategorie.get(ligneSelectionTableau).getNom());
+				Controleur.supprimCombattantCategorie(Competition.listeCategorie.get(ligneSelectionTableau).getNom());
 				Controleur.ajoutAgeManquantDansCategorie();
 				/** Message d'alerte quand il manque des catégories associé aux attributs de chaques compétiteurs**/
 				labelAlerte.setForeground(Color.RED);

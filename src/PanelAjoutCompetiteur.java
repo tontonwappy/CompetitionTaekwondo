@@ -238,7 +238,7 @@ public class PanelAjoutCompetiteur extends JPanel  {
 						age=Integer.parseInt(agePersonne.getText());
 						anneeNaissance=Controleur.calculAnnee(Integer.parseInt(agePersonne.getText()));
 					}
-					for(Club c : Controleur.listClub){
+					for(Club c : Competition.listClub){
 						if(c.getNom().equals(list.getSelectedValue())){
 							if (!Controleur.verifInsertionCategorie(age)){
 								JOptionPane.showMessageDialog(getParent(),
