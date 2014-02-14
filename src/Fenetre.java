@@ -32,12 +32,12 @@ public class Fenetre extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             
 		this.setVisible(true);	 
 		menuBar = new JMenuBar();
-		
+
 		accueil = new JMenu("Accueil ");
 		menuBar.add(accueil);
 		menuAccueil = new JMenuItem("Accueil");
 		accueil.add(menuAccueil);
-		
+
 		gestion = new JMenu("Gestion ");
 		menuBar.add(gestion);
 		generer = new JMenu("Génerer ");
@@ -67,10 +67,13 @@ public class Fenetre extends JFrame {
 		final PanelAjoutCompetiteur panelAjoutCompetiteur = new PanelAjoutCompetiteur();
 		final PanelGenererList  panelGenererList= new PanelGenererList();
 		final PanelAfficherCategorieDetail panelAfficherCompetiteur = new PanelAfficherCategorieDetail();
-
+		final String erreur="Selectionner une compétition";
+		final String titreerreur="erreur";
 		setPanel(panelAccueil);
 		currentPanel=panelAccueil;
-		
+
+
+
 		menuAccueil.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -78,68 +81,95 @@ public class Fenetre extends JFrame {
 				currentPanel=panelAccueil;
 			}
 		});
-		
-		
+
+
 		club.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(panelAjoutClub);
-				currentPanel=panelAjoutClub;
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					setPanel(panelAjoutClub);
+					currentPanel=panelAjoutClub;
+				}
 			}
 		});
 
 		competiteur.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(panelAjoutCompetiteur);
-				currentPanel=panelAjoutCompetiteur;
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					setPanel(panelAjoutCompetiteur);
+					currentPanel=panelAjoutCompetiteur;
+				}
 			}
 		});
 
 		categorie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(panelAjoutCategorie);
-				currentPanel=panelAjoutCategorie;
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					setPanel(panelAjoutCategorie);
+					currentPanel=panelAjoutCategorie;
+				}
 			}
 		});
-		
+
 		genererList.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(panelGenererList);
-				currentPanel=panelGenererList;
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					setPanel(panelGenererList);
+					currentPanel=panelGenererList;
+				}
 			}
 		});
-		
+
 		sauvegarde.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				Sauvegarde nvlSauvegarde=new Sauvegarde();
-				nvlSauvegarde.sauvegarder();
-				System.out.println(nvlSauvegarde.listeCategorie);
-				Serialization.serialise(nvlSauvegarde);
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					Controleur.sauvegarde();
+				}
 			}
 		});
-		
 
-		
+
+
 		boutonCategorie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				Controleur.refreshListModelCategorie(PanelAfficherCategorieDetail.listModel);
-			    if(PanelAjoutCategorie.ageManquant.size()==0){
-				setPanel(panelAfficherCompetiteur);
-				currentPanel=panelAfficherCompetiteur;
-			    }
-			    else{
-			    	JOptionPane.showMessageDialog(panelAfficherCompetiteur,"Avant de pouvoir afficher les categories veuillez remplir els categories manquante : ","Titre : exception",JOptionPane.ERROR_MESSAGE);
-			    }
+				if(Controleur.fichierSelection==false){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					Controleur.refreshListModelCategorie(PanelAfficherCategorieDetail.listModel);
+					if(PanelAjoutCategorie.ageManquant.size()==0){
+						setPanel(panelAfficherCompetiteur);
+						currentPanel=panelAfficherCompetiteur;
+					}
+					else{
+						JOptionPane.showMessageDialog(panelAfficherCompetiteur,"Avant de pouvoir afficher les categories veuillez remplir els categories manquante : ","Titre : exception",JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 		});
 		this.setVisible(true);
 	}
-	
+
 	private void setPanel(JPanel panel){
 		if(currentPanel!=null){
 			this.remove(currentPanel);	
@@ -147,7 +177,7 @@ public class Fenetre extends JFrame {
 		this.add(panel);
 		this.revalidate();
 		this.repaint();
-		
+
 	}
 
 }

@@ -4,13 +4,14 @@ import java.io.ObjectOutputStream;
 
 public class Serialization {
 
-	public static  void serialise(Sauvegarde sauvegarde){
+	public static  void serialise(Competition competition){
 		try {
-			FileOutputStream fichier = new FileOutputStream("gestionCompetition.ser");
+			FileOutputStream fichier = new FileOutputStream(competition.getNomCompetition()+competition.getDateCompetition()+".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fichier);
-			oos.writeObject(sauvegarde);
+			oos.writeObject(competition);
 			oos.flush();
 			oos.close();
+			System.out.println(competition.getNomCompetition());
 			System.out.println("Sauvegarde effectué");
 		}
 		catch (java.io.IOException e) {

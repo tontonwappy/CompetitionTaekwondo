@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -161,7 +162,7 @@ public class PanelAjoutCategorie extends JPanel {
 		boutonSupprimer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				Controleur.supprimCombattantCategorie(Competition.listeCategorie.get(ligneSelectionTableau).getNom());
+				Controleur.supprimCombattantCategorie(Controleur.competitionEnCours.listeCategorie.get(ligneSelectionTableau).getNom());
 				Controleur.ajoutAgeManquantDansCategorie();
 				/** Message d'alerte quand il manque des catégories associé aux attributs de chaques compétiteurs**/
 				labelAlerte.setForeground(Color.RED);

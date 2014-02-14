@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -13,12 +15,24 @@ import javax.swing.table.DefaultTableModel;
 
 public class Controleur {
 	public static ArrayList<Integer> parcourAgeManquant=new ArrayList<Integer>();
-
 	public static ArrayList<ListeCombat> listCategorieCombat = new ArrayList<ListeCombat>();
+	static Competition competitionEnCours=new Competition();
+	static boolean fichierSelection=false;
+
+	public static Competition getCompetitionEnCours() {
+		return competitionEnCours;
+	}
+
+
+
+	public static void setCompetitionEnCours(Competition competitionEnCours) {
+		Controleur.competitionEnCours = competitionEnCours;
+	}
+
 
 
 	public static void listeCategorieToString(){
-		for(Categorie cat :Competition.listeCategorie){
+		for(Categorie cat :competitionEnCours.listeCategorie){
 			System.out.println(cat.getNom());
 		}
 	}
@@ -41,7 +55,7 @@ public class Controleur {
 	}
 
 	public static Categorie inserCombattantCategorie(Competiteur competiteur){
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 
 			if(cat.getAgeMini()<=competiteur.getAge() && cat.getAgeMaxi()>=competiteur.getAge()){
 				competiteur.setCategorie(cat);
@@ -55,7 +69,7 @@ public class Controleur {
 
 	//Verifie si une des Categories comporte l'age
 	public static Boolean verifInsertionCategorie(int age){
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 			if(cat.getAgeMini()<=age && cat.getAgeMaxi()>=age){
 				return true;
 			}
@@ -65,7 +79,7 @@ public class Controleur {
 
 	//Retrouve une Categorie avec son nom
 	public static Categorie retrouveCategorie(String categorieString){
-		for(Categorie cat: Competition.listeCategorie){
+		for(Categorie cat: competitionEnCours.listeCategorie){
 			if (cat.getNom().equals(categorieString))
 				return cat;
 		}
@@ -74,7 +88,7 @@ public class Controleur {
 
 	//Verifie la conformite d'une nouvelle categorie, elle ne doit pas chevaucher une autre
 	public static Boolean VerifCreationCategorie(int ageMini,int ageMaxi){
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 			if(cat.getAgeMini()<=ageMini && cat.getAgeMaxi()> ageMini ){
 				return false;
 			}
@@ -104,8 +118,8 @@ public class Controleur {
 	//Recherche un club avec son nom
 	public static Club rechercheClub(String club){
 		Club recupclub=null;
-		if(Competition.listClub.size()!=0){
-			for(Club cl : Competition.listClub){
+		if(competitionEnCours.listClub.size()!=0){
+			for(Club cl : competitionEnCours.listClub){
 				if(cl.getNom().equals(club)){
 					recupclub=cl;
 				}		
@@ -126,7 +140,7 @@ public class Controleur {
 		if(supprim){
 			Club recupClub=rechercheClub(club);
 			if(recupClub!=null){
-				Competition.listClub.remove(recupClub);
+				competitionEnCours.listClub.remove(recupClub);
 			}
 		}
 		return supprim;
@@ -146,12 +160,12 @@ public class Controleur {
 
 	//supprime une categorie avec sa position dans l'array
 	public static void supprimCategorie(int numeroDsArray){
-		Competition.listeCategorie.remove(numeroDsArray);
+		competitionEnCours.listeCategorie.remove(numeroDsArray);
 	}
 
 	//affiche tout les competiteurs pour tous les clubs
 	public static void afficheToutCompetiteur(){
-		for(Club cl : Competition.listClub){
+		for(Club cl : competitionEnCours.listClub){
 			for(Competiteur comp :cl.getListCompetiteur()){
 				System.out.println("-----");			
 				comp.toString();
@@ -163,11 +177,11 @@ public class Controleur {
 	//genere une liste de combat avec pour chaque combat, 2 combatants, si ce n'est pas possible cree un combat avec 1 combattant
 	public static void generationListCombat(){
 		listCategorieCombat.clear();
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 			if(cat.isCategorieMixt()){
 				ListeCombat nvlListeCombatH=new ListeCombat(cat, "Mixte");
 				listCategorieCombat.add(nvlListeCombatH);
-				for(Club cl : Competition.listClub){
+				for(Club cl : competitionEnCours.listClub){
 					for(Competiteur comp : cl.getListCompetiteur()){
 						//System.out.println(comp.getNom());
 						if(comp.getCategorie().getNom().equals(cat.getNom())){
@@ -181,7 +195,7 @@ public class Controleur {
 				ListeCombat nvlListeCombatF=new ListeCombat(cat, "F");
 				listCategorieCombat.add(nvlListeCombatH);
 				listCategorieCombat.add(nvlListeCombatF);	
-				for(Club cl : Competition.listClub){
+				for(Club cl : competitionEnCours.listClub){
 					for(Competiteur comp : cl.getListCompetiteur()){
 
 						if(comp.getCategorie().getNom().equals(cat.getNom())){
@@ -301,17 +315,16 @@ public class Controleur {
 	}
 
 	public static void chargementCategorie(){
-
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 			PanelAjoutCategorie.listModel.addElement(cat.getNom());
 			PanelAjoutCategorie.model.addRow(new Object[]{cat.getNom(),cat.getAgeMini(),cat.getAgeMaxi()});			
-
+			
 		}
 
 	}
 
 	public static void resetCombattant(){
-		for(Club cl : Competition.listClub){
+		for(Club cl : competitionEnCours.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){
 				comp.setDansListCombat(false);
 			}
@@ -324,12 +337,12 @@ public class Controleur {
 
 	public static void ajoutClub(String club){
 		Club nouveauClub=new Club(1,club);
-		Competition.listClub.add(nouveauClub);
+		competitionEnCours.listClub.add(nouveauClub);
 	}
 
 	/* Recherche tout les competiteurs qui n'ont pas de contegorie et l'ajoute dans cette categorie*/
 	public static void ajoutToutCompCategorie(Categorie categorie){
-		for(Club club : Competition.listClub){
+		for(Club club : competitionEnCours.listClub){
 			for(Competiteur comp :club.getListCompetiteur()){
 				if(comp.getCategorie()==null ){
 					if (Controleur.verifAgeDansCategorie(comp.getAge(),categorie)){
@@ -342,13 +355,13 @@ public class Controleur {
 	}
 	public static Categorie ajoutNvlCategorie(String nom,int ageMini,int ageMaxi){
 		Categorie nouvelleCategorie=new Categorie(nom, ageMini,ageMaxi);
-		Competition.listeCategorie.add(nouvelleCategorie);
+		competitionEnCours.listeCategorie.add(nouvelleCategorie);
 		return nouvelleCategorie;
 	}
 
 	/* pour une categorie donnee met a null l'attribut categorie des combatants present dans celle ci*/
 	public static void supprimCombattantCategorie(String categorie){
-		for(Club cl :Competition.listClub){
+		for(Club cl :competitionEnCours.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){					
 				if(comp.getCategorie()!=null){
 					if (comp.getCategorie().getNom().equals(categorie)){
@@ -360,7 +373,7 @@ public class Controleur {
 	}
 
 	public static void ajoutAgeManquantDansCategorie(){
-		for (Club cl:Competition.listClub)
+		for (Club cl:competitionEnCours.listClub)
 		{
 			for(Competiteur comp : cl.getListCompetiteur()){
 				if(comp.getCategorie()==null){
@@ -422,7 +435,7 @@ public class Controleur {
 	}
 
 	public static void remplirListClub(DefaultListModel<String> listModel){
-		for(Club cl : Competition.listClub){
+		for(Club cl : competitionEnCours.listClub){
 			listModel.addElement(cl.getNom());
 		}
 	}
@@ -440,7 +453,7 @@ public class Controleur {
 	}
 	
 	public static void remplirListCategorie(DefaultListModel<String> listModel){
-		for(Categorie cat : Competition.listeCategorie){
+		for(Categorie cat : competitionEnCours.listeCategorie){
 			listModel.addElement(cat.getNom());
 		}
 	}
@@ -453,20 +466,20 @@ public class Controleur {
 	public static int remplirCombattant(Categorie categorie, DefaultTableModel model){
 		model.getDataVector().removeAllElements();
 		int i=0;
-		for(Club cl : Competition.listClub){
+		for(Club cl : competitionEnCours.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){	
 				if (comp.getCategorie().getNom().equals(categorie.getNom()) && comp.getGenre().equals("H")){
 					i=i+1;
-					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Competition.listClub.get(0).getNom()});
+					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),competitionEnCours.listClub.get(0).getNom()});
 				}
 			}
 		}		
 		model.addRow(new Object[]{"***","***","***","***","***","***","***","***"});
-		for(Club cl : Competition.listClub){
+		for(Club cl : competitionEnCours.listClub){
 			for(Competiteur comp : cl.getListCompetiteur()){
 				if (comp.getCategorie().getNom().equals(categorie.getNom())&& comp.getGenre().equals("F")){
 					i=i+1;
-					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),Competition.listClub.get(0).getNom()});
+					model.addRow(new Object[]{cl.getNom(),comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),competitionEnCours.listClub.get(0).getNom()});
 				}
 			}
 		}
@@ -478,7 +491,7 @@ public class Controleur {
 		panel.repaint();
 		JLabel infoMixte=new JLabel("Categorie mixte : ");
 		panel.add(infoMixte);	
-		for(Categorie cat : Competition.listeCategorie){			
+		for(Categorie cat : competitionEnCours.listeCategorie){			
 			final JCheckBox nvlCheckBox=new JCheckBox(cat.getNom());	
 			panel.add(nvlCheckBox);		
 			if(cat.isCategorieMixt()){
@@ -517,7 +530,7 @@ public class Controleur {
 	public static class threadCheckListpanelCompetiteur extends Thread {
 		public void run() {
 			while(true){
-				if(PanelAjoutCompetiteur.listModel.size()!=Competition.listClub.size()){
+				if(PanelAjoutCompetiteur.listModel.size()!=competitionEnCours.listClub.size()){
 					PanelAjoutCompetiteur.listModel.removeAllElements();
 					Controleur.remplirListClub(PanelAjoutCompetiteur.listModel);
 				}
@@ -528,6 +541,41 @@ public class Controleur {
 					e.printStackTrace();
 				}	
 			}
+		}
+	}
+	
+	public static Competition ajoutCompetition(String nom, String date){
+		Competition competition=new Competition(nom,date);
+		return competition;
+	}
+	
+	public static void sauvegarde(){
+		Serialization.serialise(competitionEnCours);
+	}
+	
+	public static void changementFichier(){
+		PanelAjoutClub.listModel.clear();
+		remplirListClub(PanelAjoutClub.listModel);
+		PanelAjoutCompetiteur.listModel.clear();
+		PanelAjoutCategorie.model.getDataVector().removeAllElements();
+		PanelAfficherCategorieDetail.model.getDataVector().removeAllElements();
+		PanelAjoutCompetiteur.model.getDataVector().removeAllElements();
+		Controleur.refreshCheckBox(PanelAjoutCategorie.contenuBas);
+		chargementCategorie();	
+	}
+	
+	public static void remplirComboFichier(){
+		File dir = new File(".");
+		File [] files = dir.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".ser");
+			}
+		});
+
+	
+		for (File serFiles : files) {
+			PanelAccueil.combo.addItem((serFiles.getName()));
 		}
 	}
 }

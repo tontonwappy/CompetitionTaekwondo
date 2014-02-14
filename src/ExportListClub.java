@@ -26,7 +26,7 @@ public class ExportListClub {
 			WritableWorkbook workbook = Workbook.createWorkbook(new File("sortieListClub.xls"));
 
 
-			for(Club cl : Competition.listClub){
+			for(Club cl : Controleur.competitionEnCours.listClub){
 				WritableSheet sheet = workbook.createSheet(cl.getNom(), 0);
 				int widthInChars = 20;
 				int col = 2;

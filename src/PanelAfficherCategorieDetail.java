@@ -20,7 +20,7 @@ public class PanelAfficherCategorieDetail extends JPanel {
 	JLabel labelInfo=new JLabel();
 	static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	JList<String> list = new JList<String>(listModel); 
-	DefaultTableModel model = new DefaultTableModel(); //définir le tableau
+	static DefaultTableModel model = new DefaultTableModel(); //définir le tableau
 	JTable tableau = new JTable(model);
 	JButton boutontest=new JButton("Ok");
 	private  static JScrollPane areaScrollPane=new JScrollPane();

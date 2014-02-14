@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +28,7 @@ public class PanelAjoutCompetiteur extends JPanel  {
 	final JTextField nom = new JTextField();
 	final JTextField prenom = new JTextField();
 	final JTextField agePersonne = new JTextField();
-	DefaultTableModel model = new DefaultTableModel();
+	static DefaultTableModel model = new DefaultTableModel();
 	JTable tableau = new JTable(model);
 	private JComboBox<String> comboGenre = new JComboBox<String>(); //définir fille ou garçon
 	int age;
@@ -238,7 +239,7 @@ public class PanelAjoutCompetiteur extends JPanel  {
 						age=Integer.parseInt(agePersonne.getText());
 						anneeNaissance=Controleur.calculAnnee(Integer.parseInt(agePersonne.getText()));
 					}
-					for(Club c : Competition.listClub){
+					for(Club c : Controleur.competitionEnCours.listClub){
 						if(c.getNom().equals(list.getSelectedValue())){
 							if (!Controleur.verifInsertionCategorie(age)){
 								JOptionPane.showMessageDialog(getParent(),

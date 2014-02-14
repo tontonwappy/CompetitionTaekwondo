@@ -16,7 +16,7 @@ public class ExtractExcel {
 		
 			while(!(sheet.getCell(0,i).getContents().equals("fin")) ){
 				boolean doublon=false;
-				for(Club cl:Competition.listClub){
+				for(Club cl:Controleur.competitionEnCours.listClub){
 					for(Competiteur comp :cl.getListCompetiteur()){
 						if((sheet.getCell(0,i).getContents().equals(comp.getNom()) && sheet.getCell(1,i).getContents().equals(comp.getPrenom())))					
 								{
@@ -45,7 +45,7 @@ public class ExtractExcel {
 			}		
 			
 			System.out.println("***********************************----------------------******************************");
-			for(Club cl:Competition.listClub){
+			for(Club cl:Controleur.competitionEnCours.listClub){
 				System.out.println(cl.getNom());
 				for(Competiteur comp :cl.getListCompetiteur()){
 					try{
