@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
+
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -17,7 +18,7 @@ public class Controleur {
 	public static ArrayList<Integer> parcourAgeManquant=new ArrayList<Integer>();
 	public static ArrayList<ListeCombat> listCategorieCombat = new ArrayList<ListeCombat>();
 	static Competition competitionEnCours=new Competition();
-	static boolean fichierSelection=false;
+	static boolean fichierSelection=false; //si aucun fichier n'est selectionné, aucun menu peut être selectionné
 
 	public static Competition getCompetitionEnCours() {
 		return competitionEnCours;
@@ -29,6 +30,7 @@ public class Controleur {
 		Controleur.competitionEnCours = competitionEnCours;
 	}
 
+	
 
 
 	public static void listeCategorieToString(){
@@ -63,6 +65,7 @@ public class Controleur {
 				return cat;
 			}
 		}
+		
 		return null;
 	}
 
@@ -446,7 +449,12 @@ public class Controleur {
 		for(Competiteur comp : club.getListCompetiteur()){
 			if (comp.getClub()==club){
 				i=i+1;
-				model.addRow(new Object[]{comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),comp.getClub().getNom()});
+				try {
+					model.addRow(new Object[]{comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),comp.getClub().getNom()});
+				} catch (Exception e) {
+					System.out.println("marche pas");
+				}
+				
 			}
 		}
 		return i;
@@ -565,6 +573,8 @@ public class Controleur {
 	}
 	
 	public static void remplirComboFichier(){
+		PanelAccueil.combo.removeAllItems();
+		PanelAccueil.combo.addItem("");
 		File dir = new File(".");
 		File [] files = dir.listFiles(new FilenameFilter() {
 			@Override
@@ -572,10 +582,30 @@ public class Controleur {
 				return name.endsWith(".ser");
 			}
 		});
-
-	
 		for (File serFiles : files) {
 			PanelAccueil.combo.addItem((serFiles.getName()));
 		}
 	}
+	
+	public static void remplirComboFichierSerialize(){
+		PanelSynchronisation.listModelCompetitionSer.clear();
+		File dir = new File(".");
+		File [] files = dir.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".ser");
+			}
+		});
+		for (File serFiles : files) {
+			
+			String fichier=serFiles.getName();
+			String str[]=fichier.split("\\.");
+			PanelSynchronisation.listModelCompetitionSer.addElement(str[0]);
+
+
+			
+		}
+	}
+	
+	
 }

@@ -63,9 +63,6 @@ public class Deserialisation {
 		FileInputStream fichier = new FileInputStream(nomFile);
 		ObjectInputStream ois = new ObjectInputStream(fichier);
 		restauration = (Competition) ois.readObject();
-		
-	
-
 		ois.close();
 		}
 		catch (java.io.IOException e) {

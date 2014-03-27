@@ -18,7 +18,7 @@ public class Sauvegarde implements  Serializable {
 		listeCategorie=Controleur.competitionEnCours.listeCategorie;
 		listClub=Controleur.competitionEnCours.listClub;
 		listCategorieCombat=Controleur.listCategorieCombat;
-		System.out.println(listeCategorie);
+		//System.out.println(listeCategorie);
 	}
 	
 	public static void chargement(ArrayList<ListeCombat> listCatCombSauv,ArrayList<Club> listClubSauv,ArrayList<Categorie> listCatSauv){

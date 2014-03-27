@@ -19,11 +19,20 @@ public class Fenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JMenuBar menuBar;
 	JMenu menu;
-	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,boutonCategorie,genererList,sauvegarde,chargement;
+	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,boutonCategorie,genererList,sauvegarde,chargement,connection,synchronisation;
 	JRadioButtonMenuItem rbMenuItem;
 	JCheckBoxMenuItem cbMenuItem;
-	JMenu accueil,gestion,afficher,generer,gestionSauvegarde;
+	JMenu accueil,gestion,afficher,generer,gestionSauvegarde,BDD;
 	JPanel currentPanel;
+	final static PanelAjoutClub panelAjoutClub = new PanelAjoutClub();
+	final static PanelAccueil panelAccueil = new PanelAccueil();
+	final static PanelAjoutCategorie panelAjoutCategorie = new PanelAjoutCategorie();
+	final static PanelAjoutCompetiteur panelAjoutCompetiteur = new PanelAjoutCompetiteur();
+	final static PanelGenererList  panelGenererList= new PanelGenererList();
+	final static PanelAfficherCategorieDetail panelAfficherCompetiteur = new PanelAfficherCategorieDetail();
+	final static PanelConnectionBDD panelCOnnectionBdd = new PanelConnectionBDD();
+	final static PanelSynchronisation PanelSynchronisation = new PanelSynchronisation();
+	
 
 	public Fenetre(){
 		this.setTitle("Gestionnaire de  compétitions");
@@ -33,40 +42,47 @@ public class Fenetre extends JFrame {
 		this.setVisible(true);	 
 		menuBar = new JMenuBar();
 
+		/*************MENU******************/
 		accueil = new JMenu("Accueil ");
 		menuBar.add(accueil);
-		menuAccueil = new JMenuItem("Accueil");
-		accueil.add(menuAccueil);
-
 		gestion = new JMenu("Gestion ");
-		menuBar.add(gestion);
+		menuBar.add(gestion);	
 		generer = new JMenu("Génerer ");
-		menuBar.add(generer);
+		menuBar.add(generer);		
+		afficher = new JMenu("Afficher");
+		menuBar.add(afficher);		
 		gestionSauvegarde = new JMenu("Sauvegarde ");
-		menuBar.add(gestionSauvegarde);
+		menuBar.add(gestionSauvegarde);		
+		BDD = new JMenu("Base de donnee ");
+		menuBar.add(BDD);	
+
+		/*************ITEM******************/
+		menuAccueil = new JMenuItem("Accueil");	
 		club = new JMenuItem("Clubs");
 		competiteur = new JMenuItem("Compétiteurs");
-		categorie = new JMenuItem("Catégories");
-		genererList = new JMenuItem("generer la liste des combats / clubs");
+		categorie = new JMenuItem("Catégories");	
+		genererList = new JMenuItem("generer la liste des combats / clubs");	
+		boutonCategorie = new JMenuItem("Afficher tous les compétiteurs");	
+		sauvegarde = new JMenuItem("Sauvegarder");
+		connection = new JMenuItem("connection");
+		synchronisation = new JMenuItem("synchronisation");
+	
+		/*************ADD ITEM TO MENU******************/
+		accueil.add(menuAccueil);
 		gestion.add(club);
 		gestion.add(competiteur);
 		gestion.add(categorie); 
 		generer.add(genererList);
-		afficher = new JMenu("Afficher");
-		menuBar.add(afficher);
-		boutonCategorie = new JMenuItem("Afficher tous les compétiteurs");
 		afficher.add(boutonCategorie);	     
-		sauvegarde = new JMenuItem("Sauvegarder");
 		gestionSauvegarde.add(sauvegarde);
+		BDD.add(connection);
+		BDD.add(synchronisation);
+		
 		//chargement = new JMenuItem("Chargement");
 		//gestionSauvegarde.add(chargement);
 		this.setJMenuBar(menuBar);
-		final PanelAjoutClub panelAjoutClub = new PanelAjoutClub();
-		final PanelAccueil panelAccueil = new PanelAccueil();
-		final PanelAjoutCategorie panelAjoutCategorie = new PanelAjoutCategorie();
-		final PanelAjoutCompetiteur panelAjoutCompetiteur = new PanelAjoutCompetiteur();
-		final PanelGenererList  panelGenererList= new PanelGenererList();
-		final PanelAfficherCategorieDetail panelAfficherCompetiteur = new PanelAfficherCategorieDetail();
+
+		
 		final String erreur="Selectionner une compétition";
 		final String titreerreur="erreur";
 		setPanel(panelAccueil);
@@ -147,6 +163,20 @@ public class Fenetre extends JFrame {
 			}
 		});
 
+		connection.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{		
+					setPanel(panelCOnnectionBdd);
+					currentPanel=panelCOnnectionBdd;			
+			}
+		});
+		synchronisation.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{	
+					setPanel(PanelSynchronisation);
+					currentPanel=PanelSynchronisation;			
+			}
+		});
 
 
 		boutonCategorie.addActionListener(new ActionListener(){
@@ -179,5 +209,7 @@ public class Fenetre extends JFrame {
 		this.repaint();
 
 	}
+	
+
 
 }
