@@ -19,7 +19,7 @@ public class Fenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JMenuBar menuBar;
 	JMenu menu;
-	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,boutonCategorie,genererList,sauvegarde,chargement,connection,synchronisation;
+	JMenuItem menuAccueil,menuItem,club,competiteur,categorie,boutonCategorie,genererList,sauvegarde,chargement,connection,synchronisation,AjoutetsuppWeb;
 	JRadioButtonMenuItem rbMenuItem;
 	JCheckBoxMenuItem cbMenuItem;
 	JMenu accueil,gestion,afficher,generer,gestionSauvegarde,BDD;
@@ -32,7 +32,8 @@ public class Fenetre extends JFrame {
 	final static PanelAfficherCategorieDetail panelAfficherCompetiteur = new PanelAfficherCategorieDetail();
 	final static PanelConnectionBDD panelCOnnectionBdd = new PanelConnectionBDD();
 	final static PanelSynchronisation PanelSynchronisation = new PanelSynchronisation();
-	
+	final static PanelAjoutEtSupp PanelAjoutEtSupp = new PanelAjoutEtSupp();
+
 
 	public Fenetre(){
 		this.setTitle("Gestionnaire de  compétitions");
@@ -64,9 +65,10 @@ public class Fenetre extends JFrame {
 		genererList = new JMenuItem("generer la liste des combats / clubs");	
 		boutonCategorie = new JMenuItem("Afficher tous les compétiteurs");	
 		sauvegarde = new JMenuItem("Sauvegarder");
-		connection = new JMenuItem("connection");
-		synchronisation = new JMenuItem("synchronisation");
-	
+		connection = new JMenuItem("connection à la Base de données");
+		synchronisation = new JMenuItem("Ajout/Récupération de compétition");
+		AjoutetsuppWeb = new JMenuItem("Mise à jour de la base de données");
+
 		/*************ADD ITEM TO MENU******************/
 		accueil.add(menuAccueil);
 		gestion.add(club);
@@ -77,12 +79,13 @@ public class Fenetre extends JFrame {
 		gestionSauvegarde.add(sauvegarde);
 		BDD.add(connection);
 		BDD.add(synchronisation);
-		
+		BDD.add(AjoutetsuppWeb);
+
 		//chargement = new JMenuItem("Chargement");
 		//gestionSauvegarde.add(chargement);
 		this.setJMenuBar(menuBar);
 
-		
+
 		final String erreur="Selectionner une compétition";
 		final String titreerreur="erreur";
 		setPanel(panelAccueil);
@@ -166,18 +169,39 @@ public class Fenetre extends JFrame {
 		connection.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{		
-					setPanel(panelCOnnectionBdd);
-					currentPanel=panelCOnnectionBdd;			
+				setPanel(panelCOnnectionBdd);
+				currentPanel=panelCOnnectionBdd;			
 			}
 		});
 		synchronisation.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{	
+				if(GestionBdd.service==null){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,"connectez vous avant",titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
 					setPanel(PanelSynchronisation);
-					currentPanel=PanelSynchronisation;			
+					currentPanel=PanelSynchronisation;		
+				}
 			}
 		});
 
+
+		AjoutetsuppWeb.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{	
+				if(Controleur.fichierSelection==false ){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,erreur,titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else if(GestionBdd.service==null){
+					JOptionPane.showMessageDialog(panelAfficherCompetiteur,"connectez vous avant",titreerreur,JOptionPane.ERROR_MESSAGE);		
+				}
+				else{
+					setPanel(PanelAjoutEtSupp);
+					currentPanel=PanelAjoutEtSupp;	
+				}
+			}
+		});
 
 		boutonCategorie.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -209,7 +233,7 @@ public class Fenetre extends JFrame {
 		this.repaint();
 
 	}
-	
+
 
 
 }

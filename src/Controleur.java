@@ -15,6 +15,12 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class Controleur {
+	//Met en cache les competiteurs supprimés durant le commencement de la suppression a la mise a jour de la base
+	//Si un utilisateur met a jour la base pendant entre la suppression et le MAJ, le competiteur supprimer ne le sera pas
+	//pour la suppression on regarde la difference entre le client et la base a condition que le client soit a jour, puis on supprime les combattants qui ne sont plus dans le client
+	//mais si un utilisateur MAJ la base en meme tps, le numero de version sera different et on devra re telecharger les differences de la base vers le client, hors les combattants supprimé ne seront plus dans le client
+	//et le systeme va par conséquent re téléchargé les combattants précedements supprimé
+	public static ArrayList<Competiteur> ListeCacheSuppresssionComp=new ArrayList<Competiteur>();
 	public static ArrayList<Integer> parcourAgeManquant=new ArrayList<Integer>();
 	public static ArrayList<ListeCombat> listCategorieCombat = new ArrayList<ListeCombat>();
 	static Competition competitionEnCours=new Competition();
@@ -152,6 +158,7 @@ public class Controleur {
 	//Supprime un competiteur avec sa position dans l'array
 	public static boolean supprimCompetiteurClub(Club club,int numeroDsArray){	
 		int tailleAvant=club.getListCompetiteur().size();
+		Controleur.ListeCacheSuppresssionComp.add(club.getListCompetiteur().get(numeroDsArray));
 		club.getListCompetiteur().remove(numeroDsArray);
 		if(tailleAvant==club.getListCompetiteur().size()){
 			return false;
@@ -438,6 +445,7 @@ public class Controleur {
 	}
 
 	public static void remplirListClub(DefaultListModel<String> listModel){
+		listModel.clear();
 		for(Club cl : competitionEnCours.listClub){
 			listModel.addElement(cl.getNom());
 		}
@@ -447,7 +455,7 @@ public class Controleur {
 		model.getDataVector().removeAllElements();
 		int i =0;
 		for(Competiteur comp : club.getListCompetiteur()){
-			if (comp.getClub()==club){
+			//if (comp.getClub()==club){
 				i=i+1;
 				try {
 					model.addRow(new Object[]{comp.getNom(),comp.getPrenom(),comp.getAge(),Controleur.calculAnnee(comp.getAge()),comp.getGenre(),comp.getCategorie().getNom(),comp.getClub().getNom()});
@@ -455,7 +463,7 @@ public class Controleur {
 					System.out.println("marche pas");
 				}
 				
-			}
+			//}
 		}
 		return i;
 	}

@@ -83,8 +83,13 @@ public class PanelAccueil extends JPanel {
 		boutonSynchronisation.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				ClientLourdImplService helloWorldService = new ClientLourdImplService();  
-				final ClientLourd service = helloWorldService.getClientLourdImplPort(); 
+				//GestionBdd.service.connectionBdd();
+				//System.out.println(GestionBdd.competiteurPasListWeb(Controleur.competitionEnCours.getNomCompetition()));
+				//GestionBdd.service.closeBdd();
+				
+				
+				//ClientLourdImplService helloWorldService = new ClientLourdImplService();  
+				//final ClientLourd service = helloWorldService.getClientLourdImplPort(); 
 				//service.ajoutCompetition("aaaaa", "bbbbcccc");
 				//service.ajoutBddCategorie("comp2","cadet", 13, 15);
 				// service.ajoutClub("comp2", "lokoa");
